@@ -20,6 +20,8 @@ function setCardType(type) {
 
 }
 
+setCardType('mastercard');
+
 const securityCode = document.querySelector('#security-code')
 
 const securityCodePattern = {
@@ -27,6 +29,12 @@ const securityCodePattern = {
 }
 
 const securityCodeMasked = IMask(securityCode, securityCodePattern)
+
+// const codigoSeguranca = IMask(
+//   document.querySelector('#security-code'), {
+//   mask: "0000"
+// })
+
 
 const dateExpiration = document.querySelector('#expiration-date')
 
@@ -49,4 +57,39 @@ const dateExpirationPattern = {
 
 const securitydateExpirationPattern = IMask(dateExpiration, dateExpirationPattern)
 
-setCardType('mastercard');
+const cardNumber = document.querySelector('#card-number')
+const cardNumberPatthern = {
+  mask: [
+    {
+      mask: '0000 0000 0000 0000',
+      regex: /^4\d{0,15}/,
+      cardtype: 'visa',
+    },
+    {
+      mask: '0000 0000 0000 0000',
+      regex: /(^5[1-5]\d{0,2}|^22[2-9]\d|^2[3-7]\d{0,2})\d{0,12}/,
+      // 'mastercard' => '/^(5[1-5]\d{4}|677189)\d{10}$/',
+      cardtype: 'mastercard'
+    },
+    {
+      mask: '0000 0000 0000 0000',
+      cardtype: "default"
+    },
+  ],
+
+  dispatch: function (appended, dynamicMasked) {
+    var number = (dynamicMasked.value + appended).replace(/\D/g, '');
+
+    const foundMask = dynamicMasked.compiledMasks.find(function (item) {
+      return number.match(item.regex)
+    });
+
+    console.log(foundMask)
+    return foundMask
+  },
+}
+
+const cardNumberMasked = IMask(cardNumber, cardNumberPatthern);
+
+
+
