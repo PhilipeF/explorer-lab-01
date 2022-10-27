@@ -1,10 +1,12 @@
 import "./css/index.css"
 import IMask from "imask"
 
-const ccBgColor01 = document.querySelector('.cc-bg svg > g > g:nth-child(1) path')
-const ccBgColor02 = document.querySelector('.cc-bg svg > g > g:nth-child(2) path')
+const ccBgColor01 = document.querySelector('.cc-bg svg > g > g:nth-child(1) path');
+const ccBgColor02 = document.querySelector('.cc-bg svg > g > g:nth-child(2) path');
 
-const ccLogo = document.querySelector('.cc-logo span:nth-child(2) img')
+const ccLogo = document.querySelector('.cc-logo span:nth-child(2) img');
+
+const nomeCard = document.querySelector('#card-holder')
 
 function setCardType(type) {
 
@@ -14,8 +16,8 @@ function setCardType(type) {
     default: ['black', 'green'],
   }
 
-  ccBgColor01.setAttribute('fill', colors[type][0]);
-  ccBgColor02.setAttribute('fill', colors[type][1]);
+  ccBgColor01.setAttribute('fill', colors[type][0])
+  ccBgColor02.setAttribute('fill', colors[type][1])
   ccLogo.setAttribute('src', `cc-${type}.svg`)
 
 }
@@ -58,6 +60,7 @@ const dateExpirationPattern = {
 const securitydateExpirationPattern = IMask(dateExpiration, dateExpirationPattern)
 
 const cardNumber = document.querySelector('#card-number')
+
 const cardNumberPatthern = {
   mask: [
     {
@@ -83,13 +86,27 @@ const cardNumberPatthern = {
     const foundMask = dynamicMasked.compiledMasks.find(function (item) {
       return number.match(item.regex)
     });
-
-    console.log(foundMask)
+    // console.log(foundMask)
     return foundMask
   },
 }
 
 const cardNumberMasked = IMask(cardNumber, cardNumberPatthern);
 
+const cardHolder = document.querySelector('#card-holder')
 
+document.querySelector("form").addEventListener('submit', (event) => {
+  event.preventDefault()
+  console.log('Passei aqui')
+})
 
+cardHolder.addEventListener("input", () => {
+  const ccHolder = document.querySelector(".cc-holder .value")
+  ccHolder.innerText = cardHolder.value.length === 0 ? "FULANO DA SILVA" : cardHolder.value
+})
+
+const ccNumber = document.querySelector('.cc-number')
+
+cardNumber.addEventListener("input", () => {
+  ccNumber.innerText = cardNumber.value
+})
