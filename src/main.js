@@ -98,6 +98,7 @@ const cardNumberMasked = IMask(cardNumber, cardNumberPatthern);
 
 document.querySelector("form").addEventListener('submit', (event) => {
   event.preventDefault()
+  alert('Cartão adicionado')
   // console.log('Passei aqui')
 })
 
