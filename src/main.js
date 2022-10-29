@@ -11,6 +11,8 @@ function setCardType(type) {
   const colors = {
     visa: ['#436D99', '#2D57F2'],
     mastercard: ['#DF6F29', '#C69347'],
+    hipercard: ['#822124', '#000'],
+    elo: ['black', 'black'],
     default: ['black', 'green'],
   }
 
@@ -76,6 +78,16 @@ const cardNumberPatthern = {
     },
     {
       mask: '0000 0000 0000 0000',
+      regex: /^((((636368)|(438935)|(504175)|(451416)|(636297))\d{0,10})|((5067)|(4576)|(4011))\d{0,12})$/,
+      cardtype: 'elo'
+    },
+    {
+      mask: '0000 0000 0000 0000',
+      regex: /^(606282\d{10}(\d{3})?)|(3841\d{15})$/,
+      cardtype: 'hipercard'
+    },
+    {
+      mask: '0000 0000 0000 0000',
       cardtype: "default"
     },
   ],
@@ -88,7 +100,7 @@ const cardNumberPatthern = {
     });
 
     // verificar as mascaras regex
-    console.log(foundMask)
+    // console.log(foundMask)
 
     return foundMask
   },
